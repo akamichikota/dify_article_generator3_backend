@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // CORSを有効にする（開発中のみ）
 app.use(cors({
-  origin: 'http://localhost:3000'  // フロントエンドのURL
+  origin: process.env.API_URL  // フロントエンドのURL
 }));
 
 
