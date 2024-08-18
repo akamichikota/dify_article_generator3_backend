@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // CORSを有効にする（開発中のみ）
 app.use(cors({
-  origin: process.env.API_URL  // フロントエンドのURL
+  origin: process.env.FRONTEND_URL  // フロントエンドのURL
 }));
 
 
