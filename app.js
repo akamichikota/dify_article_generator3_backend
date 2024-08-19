@@ -181,9 +181,6 @@ app.get('/generate-articles', async (req, res) => { // ここを async にする
                     siteurl: settings.siteurl
                   });
                   console.log('WordPressへの投稿が成功しました:', postResponse.data); // 成功ログ
-
-                  // フロントエンドに投稿結果を返す
-                  res.write(`event: message\ndata: ${JSON.stringify({ title: finalTitle, answer: finalAnswer, postResponse: postResponse.data })}\n\n`);
                 }
 
                 res.write(`event: message\ndata: ${JSON.stringify({ title: finalTitle, answer: finalAnswer })}\n\n`);
