@@ -172,7 +172,7 @@ app.get('/generate-articles', async (req, res) => { // ここを async にする
 
                 // formatがdemoでない場合のみWordPressへの投稿を呼び出す
                 if (format !== 'demo') {
-                  await axios.post(`${process.env.API_URL}/api/post-to-wordpress`, {
+                  const postResponse = await axios.post(`${process.env.API_URL}/api/post-to-wordpress`, {
                     title: finalTitle,
                     content: finalAnswer,
                     status: format,
@@ -180,6 +180,10 @@ app.get('/generate-articles', async (req, res) => { // ここを async にする
                     application_password: settings.application_password,
                     siteurl: settings.siteurl
                   });
+                  console.log('WordPressへの投稿が成功しました:', postResponse.data); // 成功ログ
+
+                  // フロントエンドに投稿結果を返す
+                  res.write(`event: message\ndata: ${JSON.stringify({ title: finalTitle, answer: finalAnswer, postResponse: postResponse.data })}\n\n`);
                 }
 
                 res.write(`event: message\ndata: ${JSON.stringify({ title: finalTitle, answer: finalAnswer })}\n\n`);
