@@ -216,12 +216,15 @@ app.get('/generate-articles', async (req, res) => { // ここを async にする
   }
 });
 
+// フロントエンドのビルドパスを環境変数から取得
+const frontendBuildPath = process.env.FRONTEND_BUILD_PATH || path.join(__dirname, '../frontend/build');
+
 // フロントエンドの静的ファイルを提供
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use(express.static(frontendBuildPath));
 
 // すべてのリクエストに対してindex.htmlを返す
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3030;
